@@ -13,4 +13,6 @@ datasource db {
 
 model User {
   discord_id String @id
+  username String?
+  createdAt DateTime?
 }
