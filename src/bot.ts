@@ -1,14 +1,12 @@
 import 'dotenv/config'
-import { Client, IntentsBitField } from 'discord.js'
+import { IntentsBitField } from 'discord.js'
+import { ExtendedClient } from './client/Client';
+import { env } from './env';
 
-const client = new Client(
+export const client = new ExtendedClient(
     {
         intents: IntentsBitField.Flags.Guilds
     }
 );
 
-client.once('ready', () => {
-    console.log('ready');
-});
-
-client.login(process.env.TOKEN);
+client.start(env.TOKEN);
