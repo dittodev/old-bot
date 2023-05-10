@@ -6,14 +6,21 @@
   "repository": "https://github.com/thatgurkangurkz/cube",
   "author": "Gurkan",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "migrate:dev": "prisma migrate dev",
+    "migrate:deploy": "prisma migrate deploy",
+    "prod": "yarn generate && yarn migrate:deploy && yarn start",
+    "start": "node --require ts-node/register src/bot.ts",
+    "generate": "prisma generate"
   },
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.1.1",
+    "prisma": "^4.14.0",
     "typescript": "^5.0.4"
   },
   "dependencies": {
+    "@prisma/client": "^4.14.0",
     "@t3-oss/env-core": "^0.3.1",
     "discord.js": "^14.11.0",
     "dotenv": "^16.0.3",
