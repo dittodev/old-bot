@@ -6,13 +6,27 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider          = "mysql"
+  url               = env("DATABASE_URL")
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 model User {
-  discord_id String @id
-  username String?
-  createdAt DateTime?
+  discord_id String    @id
+  username   String?
+  createdAt  DateTime?
+}
+
+model Warn {
+  guildId       String @id
+  userId        String
+  warnReason    String
+  warnDate      String
+  moderator     String
+}
+
+model ModLogs {
+  id        String @id
+  guildId   String
+  channelId String
 }
