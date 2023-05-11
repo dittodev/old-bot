@@ -26,5 +26,6 @@
     "dotenv": "^16.0.3",
     "ts-node": "^10.9.1",
     "zod": "^3.21.4"
-  }
+  },
+  "packageManager": "yarn@3.5.1"
 }
