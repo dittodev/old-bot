@@ -7,24 +7,28 @@
   "author": "Gurkan",
   "scripts": {
     "build": "tsc",
-    "migrate:dev": "prisma migrate dev",
-    "migrate:deploy": "prisma migrate deploy",
+    "migrate:dev": "yarn pnpify prisma migrate dev",
+    "migrate:deploy": "yarn pnpify prisma migrate deploy",
     "prod": "yarn generate && yarn migrate:deploy && yarn start",
     "start": "node --require ts-node/register src/launcher.ts",
-    "generate": "prisma generate"
+    "generate": "rimraf prisma/.prisma && yarn pnpify prisma generate"
   },
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.1.1",
-    "prisma": "^4.14.0",
+    "prisma": "4.14.0",
     "typescript": "^5.0.4"
   },
   "dependencies": {
-    "@prisma/client": "^4.14.0",
+    "@prisma/client": "4.14.0",
     "@t3-oss/env-core": "^0.3.1",
+    "@yarnpkg/pnpify": "^4.0.0-rc.43",
     "discord.js": "^14.11.0",
     "dotenv": "^16.0.3",
+    "rimraf": "^5.0.0",
     "ts-node": "^10.9.1",
-    "zod": "^3.21.4"
-  }
+    "zod": "^3.21.4",
+    ".prisma": "link:./prisma/.prisma/"
+  },
+  "packageManager": "yarn@3.5.1"
 }
