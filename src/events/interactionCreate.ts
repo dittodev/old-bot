@@ -1,8 +1,9 @@
-import { CommandInteractionOptionResolver, User as DUser } from "discord.js";
+import { User as DUser, Interaction } from "discord.js";
 import { client } from "../bot";
 import { Event } from "../structures/Event";
-import { Command, ExtendedInteraction } from "../types/Command";
+import { Command } from "../structures/Command";
 import prisma from "../prisma";
+import { ExtendedClient } from "../client/Client";
 
 async function MigratePrismaUser(user: DUser) {
     const prismaUser = await prisma.user.findUnique({
@@ -30,20 +31,15 @@ async function MigratePrismaUser(user: DUser) {
     return prismaUser
 }
 
-export default new Event("interactionCreate", async (interaction) => {
+export default new Event("interactionCreate", async (client: ExtendedClient, interaction: Interaction) => {
     // Chat Input Commands
-    if (interaction.isCommand()) {
-        await interaction.deferReply();
+    if (interaction.isChatInputCommand()) {
         const command: Command | undefined = client.commands.get(interaction.commandName);
         if (!command)
             return interaction.followUp("You have used a non existent command");
 
         const prismaUser = await MigratePrismaUser(interaction.user);
 
-        command.callback({
-            args: interaction.options as CommandInteractionOptionResolver,
-            client,
-            interaction: interaction as ExtendedInteraction
-        });
+        command.run(client, interaction)
     }
 });
