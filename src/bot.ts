@@ -8,4 +8,4 @@ export const client = new ExtendedClient(
     }
 );
 
-client.start(env.TOKEN);
+client.login(env.TOKEN);

@@ -18,7 +18,8 @@ model User {
 }
 
 model Warn {
-  guildId       String @id
+  id            String @id @default(cuid())
+  guildId       String
   userId        String
   warnReason    String
   warnDate      String
