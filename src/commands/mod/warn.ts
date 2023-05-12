@@ -1,7 +1,8 @@
-import { CacheType, ChatInputCommandInteraction, EmbedBuilder, PermissionFlagsBits, SlashCommandBuilder, TextChannel, time } from "discord.js";
+import { CacheType, ChatInputCommandInteraction, EmbedBuilder, PermissionFlagsBits, SlashCommandBuilder, time } from "discord.js";
 import { Command } from "../../structures/Command";
 import { ExtendedClient } from "../../client/Client";
 import prisma from "../../prisma";
+import { MigratePrismaUser } from "../../events/interactionCreate";
 
 export default class extends Command {
     constructor() {
@@ -10,6 +11,7 @@ export default class extends Command {
                 .setDefaultMemberPermissions(PermissionFlagsBits.ModerateMembers)
                 .setName("warn")
                 .setDescription("Add or remove a warning from a user")
+                .setDMPermission(false)
                 .addSubcommand((subCmd) =>
                     subCmd
                         .setName("add")
@@ -54,13 +56,19 @@ export default class extends Command {
 
                     if (!guild || !member || !user || !reason) return;
 
-                    const newWarn = await prisma.warn.create({
+                    const userData = await MigratePrismaUser(user);
+                    const newWarn = await prisma.infraction.create({
                         data: {
-                            userId: user.id,
+                            user: {
+                                connect: {
+                                    discord_id: user.id
+                                }
+                            },
                             guildId: guild.id,
-                            warnReason: reason,
+                            reason: reason,
                             moderator: member.user.id,
-                            warnDate: warnTime
+                            date: warnTime,
+                            type: "WARN"
                         }
                     });
 
@@ -75,50 +83,16 @@ export default class extends Command {
                         ],
                         ephemeral: true
                     });
-
-                    const modData = await prisma.modLogs.findFirst({ where: { guildId: guild.id } });
-                    const data = await prisma.warn.findFirst({
+                    const data = await prisma.infraction.findFirst({
                         where: {
                             guildId: guild.id,
-                            userId: user.id
+                            user: {
+                                discord_id: user.id
+                            }
                         }
                     });
 
                     if (!data) return;
-
-                    if (modData) {
-                        const modChannel = client.channels.cache.get(modData.channelId) as TextChannel
-                        modChannel.send({
-                            embeds: [
-                                new EmbedBuilder().setTitle("New user warned").addFields(
-                                    {
-                                        name: "User warned",
-                                        value: `<@${user.id}>`,
-                                        inline: true,
-                                    },
-                                    {
-                                        name: "Warned by",
-                                        value: `<@${member.user.id}>`,
-                                        inline: true,
-                                    },
-                                    {
-                                        name: "Warned at",
-                                        value: `${warnTime}`,
-                                        inline: true,
-                                    },
-                                    {
-                                        name: "Warn ID",
-                                        value: `\`${data.id}\``,
-                                        inline: true,
-                                    },
-                                    {
-                                        name: "Warn Reason",
-                                        value: `\`\`\`${reason}\`\`\``,
-                                    }
-                                )
-                            ]
-                        })
-                    }
 
                     user.send({
                         embeds: [
@@ -157,9 +131,9 @@ export default class extends Command {
 
                     if (!warnId) return;
 
-                    const data = await prisma.warn.findUnique({
+                    const data = await prisma.infraction.findUnique({
                         where: {
-                            id: warnId
+                            infractionId: warnId
                         }
                     });
 
@@ -172,9 +146,9 @@ export default class extends Command {
                         return;
                     }
 
-                    await prisma.warn.delete({
+                    await prisma.infraction.delete({
                         where: {
-                            id: data.id
+                            infractionId: data.infractionId
                         }
                     });
 
