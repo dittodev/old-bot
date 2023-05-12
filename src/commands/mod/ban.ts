@@ -1,8 +1,7 @@
-import ms from 'ms';
 import { CacheType, ChatInputCommandInteraction, EmbedBuilder, GuildMember, GuildMemberRoleManager, PermissionFlagsBits, SlashCommandBuilder, time } from "discord.js";
 import { Command } from "../../structures/Command";
 import { ExtendedClient } from "../../client/Client";
-import prisma from '../../prisma';
+import prisma from '../../util/prisma';
 import { MigratePrismaUser } from '../../events/interactionCreate';
 
 export default class extends Command {
