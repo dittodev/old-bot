@@ -1,5 +1,4 @@
-import { ApplicationCommandDataResolvable, Client, ClientEvents, ClientOptions, Collection } from "discord.js";
-import { RegisterCommandsOptions } from "../types/Client";
+import { Client, ClientEvents, ClientOptions, Collection } from "discord.js";
 import { Event } from "../structures/Event";
 import { Command } from "../structures/Command";
 import { readdir, stat } from "node:fs/promises";
