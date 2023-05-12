@@ -1,7 +1,7 @@
 import { CacheType, ChatInputCommandInteraction, EmbedBuilder, SlashCommandBuilder } from "discord.js";
 import { Command } from "../../structures/Command";
 import { ExtendedClient } from "../../client/Client";
-import prisma from "../../prisma";
+import prisma from "../../util/prisma";
 
 export default class extends Command {
     constructor() {

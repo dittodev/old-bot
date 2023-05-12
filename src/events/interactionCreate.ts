@@ -2,7 +2,7 @@ import { User as DUser, Interaction } from "discord.js";
 import { client } from "../bot";
 import { Event } from "../structures/Event";
 import { Command } from "../structures/Command";
-import prisma from "../prisma";
+import prisma from "../util/prisma";
 import { ExtendedClient } from "../client/Client";
 
 export async function MigratePrismaUser(user: DUser) {

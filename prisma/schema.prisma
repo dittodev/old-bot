@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
   output   = "./.prisma/client"
@@ -13,10 +10,23 @@ datasource db {
 }
 
 model User {
-  discord_id String       @id
-  username   String?
-  createdAt  DateTime?
+  discord_id  String       @id
+  createdAt   DateTime?
+  username    String?
   infractions Infraction[]
+}
+
+model Infraction {
+  infractionId   String          @id @default(cuid())
+  guildId        String
+  userDiscord_id String
+  reason         String
+  date           String
+  type           InfractionType
+  moderator      String
+  user           User            @relation(fields: [userDiscord_id], references: [discord_id])
+
+  @@index([userDiscord_id], map: "Infraction_userDiscord_id_fkey")
 }
 
 enum InfractionType {
@@ -25,13 +35,9 @@ enum InfractionType {
   BAN
 }
 
-model Infraction {
-  infractionId   String @id @default(cuid())
-  guildId        String
-  user           User   @relation(fields: [userDiscord_id], references: [discord_id])
-  userDiscord_id String
-  reason         String
-  date           String
-  moderator      String
-  type InfractionType
+model MemberLog {
+  guildId String @id
+  memberRole String
+  logChannel String
+  botRole String
 }

@@ -36,6 +36,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@yarnpkg/pnpify", "npm:4.0.0-rc.43"],\
             ["discord.js", "npm:14.11.0"],\
             ["dotenv", "npm:16.0.3"],\
+            ["moment", "npm:2.29.4"],\
             ["ms", "npm:2.1.3"],\
             ["prisma", "npm:4.14.0"],\
             ["rimraf", "npm:5.0.0"],\
@@ -919,6 +920,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@yarnpkg/pnpify", "npm:4.0.0-rc.43"],\
             ["discord.js", "npm:14.11.0"],\
             ["dotenv", "npm:16.0.3"],\
+            ["moment", "npm:2.29.4"],\
             ["ms", "npm:2.1.3"],\
             ["prisma", "npm:4.14.0"],\
             ["rimraf", "npm:5.0.0"],\
@@ -1488,6 +1490,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/mkdirp-npm-1.0.4-37f6ef56b9-a96865108c.zip/node_modules/mkdirp/",\
           "packageDependencies": [\
             ["mkdirp", "npm:1.0.4"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["moment", [\
+        ["npm:2.29.4", {\
+          "packageLocation": "./.yarn/cache/moment-npm-2.29.4-902943305d-0ec3f9c2bc.zip/node_modules/moment/",\
+          "packageDependencies": [\
+            ["moment", "npm:2.29.4"]\
           ],\
           "linkType": "HARD"\
         }]\
