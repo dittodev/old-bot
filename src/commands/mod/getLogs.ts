@@ -9,6 +9,7 @@ export default class extends Command {
             data: new SlashCommandBuilder()
                 .setName("logs")
                 .setDescription("Get the logs of a user")
+                .setDMPermission(false)
                 .addSubcommand((subCmd) =>
                     subCmd
                         .setName("warns")

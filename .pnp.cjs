@@ -28,12 +28,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         [null, {\
           "packageLocation": "./",\
           "packageDependencies": [\
+            [".prisma", "link:./prisma/.prisma/::locator=cube%40workspace%3A."],\
             ["@prisma/client", "virtual:fdadbb813384d7d7638b31613bda175623aa62aa2c29210a94670b0b21382434e6d945a8c284b28ed4a6ba0495943d2b39a2ee4183bc702094f5e92bb5b959a8#npm:4.14.0"],\
             ["@t3-oss/env-core", "virtual:fdadbb813384d7d7638b31613bda175623aa62aa2c29210a94670b0b21382434e6d945a8c284b28ed4a6ba0495943d2b39a2ee4183bc702094f5e92bb5b959a8#npm:0.3.1"],\
+            ["@types/ms", "npm:0.7.31"],\
             ["@types/node", "npm:20.1.1"],\
             ["@yarnpkg/pnpify", "npm:4.0.0-rc.43"],\
             ["discord.js", "npm:14.11.0"],\
             ["dotenv", "npm:16.0.3"],\
+            ["ms", "npm:2.1.3"],\
             ["prisma", "npm:4.14.0"],\
             ["rimraf", "npm:5.0.0"],\
             ["ts-node", "virtual:fdadbb813384d7d7638b31613bda175623aa62aa2c29210a94670b0b21382434e6d945a8c284b28ed4a6ba0495943d2b39a2ee4183bc702094f5e92bb5b959a8#npm:10.9.1"],\
@@ -41,6 +44,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["zod", "npm:3.21.4"]\
           ],\
           "linkType": "SOFT"\
+        }]\
+      ]],\
+      [".prisma", [\
+        ["link:./prisma/.prisma/::locator=cube%40workspace%3A.", {\
+          "packageLocation": "./prisma/.prisma/",\
+          "packageDependencies": [\
+            [".prisma", "link:./prisma/.prisma/::locator=cube%40workspace%3A."]\
+          ],\
+          "linkType": "SOFT",\
+          "discardFromLookup": true\
         }]\
       ]],\
       ["@arcanis/slice-ansi", [\
@@ -432,6 +445,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@types/keyv", "npm:3.1.4"],\
             ["@types/node", "npm:20.1.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/ms", [\
+        ["npm:0.7.31", {\
+          "packageLocation": "./.yarn/cache/@types-ms-npm-0.7.31-ea3b89342b-daadd354ae.zip/node_modules/@types/ms/",\
+          "packageDependencies": [\
+            ["@types/ms", "npm:0.7.31"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -889,12 +911,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",\
           "packageDependencies": [\
             ["cube", "workspace:."],\
+            [".prisma", "link:./prisma/.prisma/::locator=cube%40workspace%3A."],\
             ["@prisma/client", "virtual:fdadbb813384d7d7638b31613bda175623aa62aa2c29210a94670b0b21382434e6d945a8c284b28ed4a6ba0495943d2b39a2ee4183bc702094f5e92bb5b959a8#npm:4.14.0"],\
             ["@t3-oss/env-core", "virtual:fdadbb813384d7d7638b31613bda175623aa62aa2c29210a94670b0b21382434e6d945a8c284b28ed4a6ba0495943d2b39a2ee4183bc702094f5e92bb5b959a8#npm:0.3.1"],\
+            ["@types/ms", "npm:0.7.31"],\
             ["@types/node", "npm:20.1.1"],\
             ["@yarnpkg/pnpify", "npm:4.0.0-rc.43"],\
             ["discord.js", "npm:14.11.0"],\
             ["dotenv", "npm:16.0.3"],\
+            ["ms", "npm:2.1.3"],\
             ["prisma", "npm:4.14.0"],\
             ["rimraf", "npm:5.0.0"],\
             ["ts-node", "virtual:fdadbb813384d7d7638b31613bda175623aa62aa2c29210a94670b0b21382434e6d945a8c284b28ed4a6ba0495943d2b39a2ee4183bc702094f5e92bb5b959a8#npm:10.9.1"],\
@@ -1463,6 +1488,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/mkdirp-npm-1.0.4-37f6ef56b9-a96865108c.zip/node_modules/mkdirp/",\
           "packageDependencies": [\
             ["mkdirp", "npm:1.0.4"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["ms", [\
+        ["npm:2.1.3", {\
+          "packageLocation": "./.yarn/cache/ms-npm-2.1.3-81ff3cfac1-aa92de6080.zip/node_modules/ms/",\
+          "packageDependencies": [\
+            ["ms", "npm:2.1.3"]\
           ],\
           "linkType": "HARD"\
         }]\

@@ -1,4 +1,4 @@
-import { CacheType, ChatInputCommandInteraction, EmbedBuilder, PermissionFlagsBits, SlashCommandBuilder, TextChannel, time } from "discord.js";
+import { CacheType, ChatInputCommandInteraction, EmbedBuilder, PermissionFlagsBits, SlashCommandBuilder, time } from "discord.js";
 import { Command } from "../../structures/Command";
 import { ExtendedClient } from "../../client/Client";
 import prisma from "../../prisma";
@@ -11,6 +11,7 @@ export default class extends Command {
                 .setDefaultMemberPermissions(PermissionFlagsBits.ModerateMembers)
                 .setName("warn")
                 .setDescription("Add or remove a warning from a user")
+                .setDMPermission(false)
                 .addSubcommand((subCmd) =>
                     subCmd
                         .setName("add")
