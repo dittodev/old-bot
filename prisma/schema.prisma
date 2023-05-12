@@ -22,14 +22,14 @@ model Infraction {
   userDiscord_id String
   reason         String
   date           String
-  type           Infraction_type
+  type           InfractionType
   moderator      String
   user           User            @relation(fields: [userDiscord_id], references: [discord_id])
 
   @@index([userDiscord_id], map: "Infraction_userDiscord_id_fkey")
 }
 
-enum Infraction_type {
+enum InfractionType {
   WARN
   TIMEOUT
   BAN
