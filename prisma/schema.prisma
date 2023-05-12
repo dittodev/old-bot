@@ -3,7 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
-  output = "./.prisma/client"
+  output   = "./.prisma/client"
 }
 
 datasource db {
@@ -13,22 +13,24 @@ datasource db {
 }
 
 model User {
-  discord_id String    @id
+  discord_id String       @id
   username   String?
   createdAt  DateTime?
+  infractions Infraction[]
 }
 
-model Warn {
-  id            String @id @default(cuid())
-  guildId       String
-  userId        String
-  warnReason    String
-  warnDate      String
-  moderator     String
+enum InfractionType {
+  WARN
+  TIMEOUT
 }
 
-model ModLogs {
-  id        String @id
-  guildId   String
-  channelId String
+model Infraction {
+  infractionId   String @id @default(cuid())
+  guildId        String
+  user           User   @relation(fields: [userDiscord_id], references: [discord_id])
+  userDiscord_id String
+  reason         String
+  date           String
+  moderator      String
+  type InfractionType
 }

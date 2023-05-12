@@ -5,7 +5,7 @@ import { Command } from "../structures/Command";
 import prisma from "../prisma";
 import { ExtendedClient } from "../client/Client";
 
-async function MigratePrismaUser(user: DUser) {
+export async function MigratePrismaUser(user: DUser) {
     const prismaUser = await prisma.user.findUnique({
         where: {
             discord_id: user.id

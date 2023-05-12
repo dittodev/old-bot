@@ -35,10 +35,13 @@ export default class extends Command {
                 const user = interaction.options.getUser("user")!;
                 const page = interaction.options.getInteger("page");
 
-                const userWarnings = await prisma.warn.findMany({
+                const userWarnings = await prisma.infraction.findMany({
                     where: {
-                        userId: user.id,
+                        user: {
+                            discord_id: user.id
+                        },
                         guildId: interaction.guild?.id,
+                        type: "WARN"
                     }
                 });
 
@@ -73,14 +76,14 @@ export default class extends Command {
                         );
 
                         embed.addFields({
-                            name: `id: ${warnings.id}`,
+                            name: `id: ${warnings.infractionId}`,
                             value: `
                               Moderator: ${moderator || "Moderator left"
                                 }
-                              User: ${warnings.userId}
-                              Reason: \`${warnings.warnReason
+                              User: ${warnings.userDiscord_id}
+                              Reason: \`${warnings.reason
                                 }\`
-                              Date: ${warnings.warnDate}
+                              Date: ${warnings.date}
                               `,
                         });
 
@@ -101,14 +104,14 @@ export default class extends Command {
                     );
 
                     embed.addFields({
-                        name: `id: ${warns.id}`,
+                        name: `id: ${warns.infractionId}`,
                         value: `
                               Moderator: ${moderator || "Moderator left"
                             }
-                              User: ${warns.userId}
-                              Reason: \`${warns.warnReason
+                              User: ${warns.userDiscord_id}
+                              Reason: \`${warns.reason
                             }\`
-                              Date: ${warns.warnDate}
+                              Date: ${warns.date}
                               `,
                     });
                 }
