@@ -6,6 +6,11 @@ import path from "node:path";
 
 export class ExtendedClient extends Client<true> {
     public readonly commands: Collection<string, Command> = new Collection();
+    public readonly guildConfig: Collection<string, {
+        logChannel: string,
+        memberRole: string,
+        botRole: string
+    }> = new Collection();
 
     public constructor(options: ClientOptions) {
         super(options);

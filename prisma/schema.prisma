@@ -13,9 +13,9 @@ datasource db {
 }
 
 model User {
-  discord_id String       @id
-  username   String?
-  createdAt  DateTime?
+  discord_id  String       @id
+  username    String?
+  createdAt   DateTime?
   infractions Infraction[]
 }
 
@@ -25,12 +25,19 @@ enum InfractionType {
 }
 
 model Infraction {
-  infractionId   String @id @default(cuid())
+  infractionId   String         @id @default(cuid())
   guildId        String
-  user           User   @relation(fields: [userDiscord_id], references: [discord_id])
+  user           User           @relation(fields: [userDiscord_id], references: [discord_id])
   userDiscord_id String
   reason         String
   date           String
   moderator      String
-  type InfractionType
+  type           InfractionType
+}
+
+model MemberLog {
+  guildId    String @id
+  memberRole String
+  botRole    String
+  logChannel String
 }
