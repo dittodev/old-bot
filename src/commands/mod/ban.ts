@@ -10,7 +10,7 @@ export default class extends Command {
         super({
             data: new SlashCommandBuilder()
                 .setName("ban")
-                .setDescription("restrict a member's ability to speak")
+                .setDescription("ban a member")
                 .setDefaultMemberPermissions(PermissionFlagsBits.ModerateMembers || PermissionFlagsBits.BanMembers)
                 .setDMPermission(false)
                 .addUserOption((option) => option
@@ -20,7 +20,7 @@ export default class extends Command {
                 )
                 .addStringOption((option) => option
                     .setName("reason")
-                    .setDescription("reason for the timeout")
+                    .setDescription("reason for the ban")
                     .setMinLength(5)
                     .setMaxLength(1024)
                     .setRequired(true)
