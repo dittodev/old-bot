@@ -15,4 +15,5 @@ export class Command {
 export interface SlashCommand {
     data: SlashCommandBuilder | SharedNameAndDescription;
     cooldown?: number;
+    superUserOnly?: boolean;
 };

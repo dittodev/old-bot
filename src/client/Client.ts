@@ -25,6 +25,14 @@ export class ExtendedClient extends Client<true> {
         return super.login(token)
     }
 
+    public async reloadEvents() {
+        await this.setEventHandlers(process.cwd() + '/src/commands/');
+    }
+
+    public async reloadCommands() {
+        this.setClientCommands(process.cwd() + '/src/events/')
+    }
+
     async importFile(filePath: string) {
         return (await import(filePath))?.default;
     }
@@ -35,7 +43,7 @@ export class ExtendedClient extends Client<true> {
                 const files = await loadFiles(path.resolve(paths, category))
                 if (!files) return;
                 files.forEach(async (file) => {
-                    const command: Command = new ((await import(path.resolve(paths, category, file)))?.default);
+                    const command: Command = new ((await this.importFile(path.resolve(paths, category, file))));
                     this.commands.set(command.structure.data.name, command);
                     return delete require.cache[require.resolve(path.resolve(paths, category, file))];
                 });
@@ -47,7 +55,7 @@ export class ExtendedClient extends Client<true> {
         const files = await loadFiles(paths);
         if (!files) return;
         files.forEach(async (file) => {
-            const handler: Event<keyof ClientEvents> = ((await import(path.resolve(paths, file)))?.default);
+            const handler: Event<keyof ClientEvents> = ((await this.importFile(path.resolve(paths, file))));
             this.on(handler.event, async (...args) => handler.exec(this, ...args));
             return delete require.cache[require.resolve(path.resolve(paths, file))];
         });

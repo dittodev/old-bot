@@ -1,10 +1,11 @@
-import { User as DUser, Interaction } from "discord.js";
+import { CacheType, ChatInputCommandInteraction, User as DUser, Interaction } from "discord.js";
 import { client } from "../bot";
 import { Event } from "../structures/Event";
 import { Command } from "../structures/Command";
 import prisma from "../util/prisma";
 import { ExtendedClient } from "../client/Client";
 import { MigratePrismaGuild } from "./guildCreate";
+import { User } from "@prisma/client";
 
 export async function MigratePrismaUser(user: DUser) {
     if (user.bot) return;
@@ -33,6 +34,11 @@ export async function MigratePrismaUser(user: DUser) {
     return prismaUser
 }
 
+async function handleSuperUser(cmd: Command, prismaUser: User, client: ExtendedClient, interaction: ChatInputCommandInteraction<CacheType>) {
+    if (!prismaUser.isSuperUser) return interaction.reply("You do not have permission to run this command.");
+    cmd.run(client, interaction);
+}
+
 export default new Event("interactionCreate", async (client: ExtendedClient, interaction: Interaction) => {
     if (interaction.guild) await MigratePrismaGuild(interaction.guild);
     // Chat Input Commands
@@ -42,6 +48,10 @@ export default new Event("interactionCreate", async (client: ExtendedClient, int
             return interaction.followUp("You have used a non existent command");
 
         const prismaUser = await MigratePrismaUser(interaction.user);
+
+        if (prismaUser) {
+            if (command.structure.superUserOnly) return await handleSuperUser(command, prismaUser, client, interaction)
+        }        
 
         command.run(client, interaction)
     }
