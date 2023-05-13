@@ -4,6 +4,7 @@ import { Event } from "../structures/Event";
 import { Command } from "../structures/Command";
 import prisma from "../util/prisma";
 import { ExtendedClient } from "../client/Client";
+import { MigratePrismaGuild } from "./guildCreate";
 
 export async function MigratePrismaUser(user: DUser) {
     if (user.bot) return;
@@ -33,6 +34,7 @@ export async function MigratePrismaUser(user: DUser) {
 }
 
 export default new Event("interactionCreate", async (client: ExtendedClient, interaction: Interaction) => {
+    if (interaction.guild) await MigratePrismaGuild(interaction.guild);
     // Chat Input Commands
     if (interaction.isChatInputCommand()) {
         const command: Command | undefined = client.commands.get(interaction.commandName);
